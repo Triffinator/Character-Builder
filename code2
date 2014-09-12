@@ -169,10 +169,10 @@ public class CharacterBuilder {
     
     public static void DispFinal(String name, String title, String race, int Dex, int Str, int Cha, int HP, int Int)
     {
-        if(race.charAt(0) == 'a'|| race.charAt(0) == 'e'|| race.charAt(0) == 'i' ||race.charAt(0) == 'o' || race.charAt(0) == 'u')
+        if(race.Equals(Elf))
             System.out.println("\n You are: "+name+"-"+title+", an "+race+".");
         else
-            if(race.charAt(0) != 'a'|| race.charAt(0) != 'e'|| race.charAt(0) != 'i' ||race.charAt(0) != 'o' || race.charAt(0) != 'u')
+            if(race.Equals(Dwarf)||race.Equals(Human))
                 System.out.println("\n You are: "+name+" -"+title+", a "+race+".");//simply put in for grammatical correctness. I'm a bitch.
         
         System.out.println("\n Your stats are: \n Dex: "+Dex+"\n Str: "+Str+"\n Cha: "+Cha+"\n HP: "+HP+"\n Int: "+Int);
