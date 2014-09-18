@@ -1,0 +1,373 @@
+package characterbuilder;
+
+import java.util.*;
+
+public class CharacterBuilder {
+    
+    //private int SpecNum = 5;// used for array when built
+    static Random rand = new Random();
+    static Scanner Stringer = new Scanner(System.in);
+    static Scanner rollScan = new Scanner(System.in);
+    private static int RaceNum = 3;
+    private static int TitleNum = 3;
+    private static int HighRoll = 16;
+    private static String Dwarf = "Dwarf";
+    private static String Elf = "Elf";
+    private static String Human = "Human";
+    
+    public static String GetName()
+    {
+        String name;
+        
+        System.out.print(" Please enter a name for your character:\n\n ");
+        name = Stringer.next();
+        
+        return(name);
+    }
+    
+    public static void DisplayTitles()
+    {
+        System.out.println("\n Please, choose a title from this list. Enter a number to do so");
+        System.out.println(" 1 - The Lesser");
+        System.out.println(" 2 - The Weak");
+        System.out.println(" 3 - The Apprentice");
+        
+        //Code for updating titles here, gained by completing certain actions. Can be changed in a town.
+        // e.g. "Apothecary" - craft a potion. "Destroyer" - slay a hard enemy. "First Blood" - kill first enemy. "Devourer" - Eat something. Cannabalism/fallen enemy or something.
+        //"Enchanter", "Chaser", "Pervert", "Seeker"...
+    }        
+    
+    public static String GetTitle()
+    {
+        String option;
+        boolean checker;
+        
+        do
+        {
+            System.out.print(" Please enter a choice for your character:\n\n ");
+            option = Stringer.next();
+            
+            checker = isNumeric(option);
+            
+            if(!checker)
+                System.out.println(" Error! Try again!");
+            
+        }while(!checker);//This will need adjusting if unlockable titles happen. Will probably end quite long. Other wise, can be recalled with GetRace() as GetOption()
+        //call to check entry validity code (integer, not char)
+        
+        return(option);
+    }
+    
+    public static String GetRace()
+    {
+        String option;
+        boolean checker;
+        
+        do
+        {
+            System.out.print(" Please enter a choice for your character:\n\n ");
+            option = Stringer.next();
+            
+            checker = isNumeric(option);
+            
+            if(!checker)
+                System.out.println(" Error! Try again!");
+            
+        }while(!checker);//This will need adjusting if unlockable titles happen. Will probably end quite long. Other wise, can be recalled with GetRace() as GetOption()
+        //call to check entry validity code (integer, not char)
+        
+        return(option);
+    }
+    
+    public static void Warning()
+    {
+        System.out.println(" Error! Invalid input! Please, try again.");
+    }
+    
+    public static int Wrapper(String inputData)
+    {
+        int output;
+        output = Integer.parseInt(inputData);
+        
+        return(output);
+    }
+    
+    public static boolean isNumeric(String inputData) 
+    {
+        return inputData.matches("[-+]?\\d+(\\.\\d+)?");//assess entry to check if information is viable (numeric)
+    }
+        
+    public static String AssignTitle(int choice)
+    {
+        String Title;
+        
+        switch(choice)
+        {
+            case 1: 
+                Title = " The Lesser";
+                break;
+            case 2:
+                Title = " The Weak";
+                break;
+            case 3:
+                Title = " The Apprentice";
+                break;
+            case 4:
+                Title = " First blood";
+                break;
+            case 5:
+                Title = " Destroyer";
+                break;
+            case 6: 
+                Title = " Enchanter";
+                break;
+            case 7:
+                Title = " Apothecary";
+                break;
+            case 8:
+                Title = " Devourer";
+                break;
+            case 9:
+                Title = " Seeker";
+                break;
+            //add more if needed
+            default:
+                Title = " Ravager";
+                break;
+        }
+        
+        return(Title);
+    }
+                
+    public static void DisplayRaces()
+    {
+        System.out.println("\n Please, choose a race from this list. Enter a number to do so");
+        System.out.println("\n 1 - Elf.\n Elves are nimble fighters.\n Sporting powerful bows and deadly daggers, they can handle themselves in close quarters or from afar. \n They gain a bonus to Dexterity and a weakness in Strength.");
+        System.out.println("\n 2 - Dwarf.\n Dwarves are strong, surly warriors.\n Heaving a great-axe or war-hammer, they can easily crush and cleave their foes. \n They gain a bonus to Strength and a weakness in Intelligence.");
+        System.out.println("\n 3 - Human.\n Humans are cunning, hearty travellers.\n They are often seen with swords or hand-axes, destroying their enemies.\n They gain minor bonuses to Hit Points and Intelligence, but their lowered longevity costs them in Dexterity."); 
+    }
+    
+    public static String AssignRace(int choice)
+    {
+        String race;
+        
+        switch (choice)
+        {
+            case 1: 
+                race = "Elf";
+                break;
+            case 2:
+                race = "Dwarf";
+                break;
+            default:
+                race = "Human";
+                break;
+        } 
+        return(race);
+    }
+    
+    public static void DispFinal(String name, String title, String race, int Dex, int Str, int Cha, int HP, int Int)
+    {
+        if(race.equals(Elf))
+            System.out.println("\n You are: "+name+"-"+title+", an "+race+".");
+        else
+            if(race.equals(Dwarf)||race.equals(Human))
+                System.out.println("\n You are: "+name+" -"+title+", a "+race+".");//simply put in for grammatical correctness. I'm a bitch.
+        
+        System.out.println("\n Your stats are: \n Dex: "+Dex+"\n Str: "+Str+"\n Cha: "+Cha+"\n HP: "+HP+"\n Int: "+Int);
+    }
+    
+    public static int RollSpec()
+    {
+        int spec = 0;
+        
+        do{
+            spec = (rand.nextInt(HighRoll));//bring to range 3 to HighRoll+3.
+            spec += 3;
+        }while(spec <= 2);
+        
+        return(spec);
+    }
+    
+    public static int AddSpec(int Spec, int Adj)
+    {
+        Spec+=Adj;
+            
+        return(Spec);
+    }
+    
+    public static int NegSpec(int Spec, int Adj)
+    {
+        Spec-=Adj;
+        
+        return(Spec);
+    }
+    
+    public static int LowSpec(int Spec, int low)
+    {
+        if(Spec < low)
+            low = Spec;
+            
+        return(low);
+    }
+    
+    public static boolean CheckRoll(int low)
+    {
+        char answer;
+        boolean check = true;
+        
+        System.out.print("\n\n Would you like to re-roll first stat of: "+low+"?\n ");
+        do
+        {
+            answer = rollScan.next().charAt(0);
+        
+            if(answer == 'y')
+                check = true;
+            else
+                if(answer == 'n')
+                    check = false;
+            
+            if(answer != 'n' && answer != 'y')
+                System.out.println("\n Error. Retry entry.");
+        }while(answer != 'n' && answer != 'y');
+        
+        return(check);
+    }
+    
+    public static boolean DetSpec(int Spec, int temp)
+    {
+        boolean check = true;
+        
+        if(Spec!=temp)
+            check = false;
+        
+        return(check);//if true, return true.
+    }
+    
+    public static void main(String[] args) 
+    {
+        String name, title, race, choice;
+        
+        int Dex, Str, Int, HP, Cha;//Needs fixing. More can be added. Skills are Strength, Intelligence, Hit Points, Charisma, Dexterity. Can we do this as array?
+        int low = Integer.MAX_VALUE, temp;
+        int titleChoice, raceChoice;
+        
+        boolean DexBool;
+        boolean ChaBool;
+        boolean HPBool;
+        boolean IntBool;
+        boolean StrBool;
+        boolean ReRoll;
+        
+        //Methods were added when I thought of them. This lead to some being inputted at odd positions, relative to when they get called. For this reason, I have commented (in main) which line the method starts on.
+        name = GetName();//line 18
+        
+        DisplayTitles();//line 28
+        
+        do
+        {    
+            choice = GetTitle();//line 40
+            titleChoice = Wrapper(choice);//line 87
+            
+            if(titleChoice == '0' || titleChoice > TitleNum)
+                Warning();//line 80   
+        }while(titleChoice == '0' || titleChoice > TitleNum);
+        
+        title = AssignTitle(titleChoice);//line 100. Put here to resolve "May not have been initialized" error.
+        
+        DisplayRaces();//line 143
+        
+        do
+        {
+            choice = GetRace();//line 61
+            raceChoice = Wrapper(choice);// line 87
+            
+            if(raceChoice == '0' || raceChoice > RaceNum)
+                Warning();//line 80
+        }while(raceChoice == '0' || raceChoice > RaceNum);
+        
+        race = AssignRace(raceChoice);//line 151
+        
+        Dex = RollSpec(); //line 181
+        Str = RollSpec();
+        Cha = RollSpec();
+        HP = RollSpec();
+        Int = RollSpec();
+        
+        if(race.equals(Elf))
+        {
+            Dex = AddSpec(Dex, 2);//line 192
+            Str = NegSpec(Str, 2);//line 199
+        }
+        
+        if(race.equals(Dwarf))
+        {
+            Str = AddSpec(Str, 2);//line 192
+            Int = NegSpec(Int, 2);//line 199
+        }
+        
+        if(race.equals(Human))
+        {
+            HP = AddSpec(HP, 1);//line 192
+            Int = AddSpec(Int, 1);//line 192
+            Dex = NegSpec(Dex, 3);//line 199
+        }
+        
+        DispFinal(name, title, race, Dex, Str, Cha, HP, Int);//line 170
+        
+        low = LowSpec(Dex, low);//line 206
+        low = LowSpec(Str, low);
+        low = LowSpec(Cha, low);
+        low = LowSpec(HP, low);
+        low = LowSpec(Int, low);
+        
+        ReRoll = CheckRoll(low);
+        temp = low;
+        
+        if(ReRoll)
+        {
+            low = RollSpec();//line 181
+        
+            DexBool = DetSpec(Dex, temp);//determines which spec should be re-assigned.                                             
+            StrBool = DetSpec(Str, temp);//line 237
+            ChaBool = DetSpec(Cha, temp);
+            HPBool = DetSpec(HP, temp);
+            IntBool = DetSpec(Int, temp);
+        
+            if(DexBool)
+                Dex = low;
+            else
+                if(StrBool)
+                    Str = low;
+                else
+                    if(ChaBool)
+                        Cha = low;
+                    else
+                        if(HPBool)
+                            HP = low;
+            
+            if(race.equals(Elf)&& DexBool)
+                Dex = AddSpec(Dex, 2);//line 192
+            
+            if(race.equals(Elf)&& StrBool)
+                Str = NegSpec(Str, 2);//line 199
+            
+            if(race.equals(Dwarf)&& StrBool)
+                Str = AddSpec(Str, 2);
+            
+            if(race.equals(Dwarf)&& IntBool)
+                Int = NegSpec(Int, 2);
+            
+            if(race.equals(Human)&& HPBool)
+                HP = AddSpec(HP, 1);
+            
+            if(race.equals(Human)&& IntBool)
+                Int = AddSpec(Int, 1);
+            
+            if(race.equals(Human)&& DexBool)
+                Dex = NegSpec(Dex, 3);
+        }
+        
+        DispFinal(name, title, race, Dex, Str, Cha, HP, Int);//line 170
+    }  
+}
